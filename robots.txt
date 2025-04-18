@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /landing/ Sitemap: https://www.drmazghodsian.com/sitemap.xml
