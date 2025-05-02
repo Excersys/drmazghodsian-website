@@ -42,6 +42,11 @@ def patch_html_files(root_dir, url_to_local):
                 # Replace each PatientPop URL with its local equivalent
                 for url, local_path in url_to_local.items():
                     new_content = new_content.replace(url, local_path)
+                # Remove PatientPop preconnect/dns-prefetch links
+                new_content = re.sub(r'<link[^>]+href="https://sa1s3optim.patientpop.com"[^>]*>', '', new_content)
+                new_content = re.sub(r'<link[^>]+href="https://ui-cdn.patientpop.com"[^>]*>', '', new_content)
+                # Remove any remaining PatientPop URLs (e.g. in comments, stray links)
+                new_content = re.sub(r'https://(?:sa1s3optim|ui-cdn)\.patientpop\.com[^"\'\)>]+', '', new_content)
                 if new_content != content:
                     with open(file_path, "w", encoding="utf-8") as f:
                         f.write(new_content)
